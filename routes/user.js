@@ -8,6 +8,4 @@ router.route("/login").post(login);
 router.route("/register").post(register);
 router.route("/dashboard").get(authMiddleware, dashboard);
 router.route("/users").get(getAllUsers);
-
-
 module.exports = router;

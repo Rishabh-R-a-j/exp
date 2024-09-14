@@ -13,14 +13,17 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [ token, setToken ] = useState(JSON.parse(localStorage.getItem("auth")) || "");
   const navigate = useNavigate();
-
+useEffect(()=>{
+setToken(JSON.parse(localStorage.getItem("auth")) || "");
+},[])
 
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     let email = e.target.email.value;
     let password = e.target.password.value;
-
+    // console.log(email);
+    // console.log(password);
     if (email.length > 0 && password.length > 0) {
       const formData = {
         email,
@@ -31,11 +34,13 @@ const Login = () => {
           "http://localhost:3000/api/v1/login",
           formData
         );
+        
         localStorage.setItem('auth', JSON.stringify(response.data.token));
         toast.success("Login successfull");
         navigate("/dashboard");
       } catch (err) {
         console.log(err);
+        console.log("Hello")
         toast.error(err.message);
       }
     } else {
